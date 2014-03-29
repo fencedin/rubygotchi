@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: rubygotchi_development
+
+test:
+  adapter: postgresql
+  database: rubygotchi_test
