@@ -10,10 +10,10 @@
 *Pet will have life stages: baby, child, teen, adult
 
 >==================================
->          Name: [name of pet]
->        Hunger: [####-------]
->         Happy: [########---]
->    Discipline: [#----------]
+>          Name: [name of pet♀]
+>        Hunger: [ ▣▣▣▣▢▢▢▢▢▢ ]
+>         Happy: [ ▣▣▣▣▣▣▣▣▢▢ ]
+>    Discipline: [ ▣▢▢▢▢▢▢▢▢▢ ]
 >
 >o
 >  o  _
