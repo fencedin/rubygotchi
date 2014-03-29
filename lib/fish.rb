@@ -1,6 +1,11 @@
 class Fish < ActiveRecord::Base
-
-
+  validates :name, presence: true,
+                   presence: {message: "your freind"},
+                   length: {maximum: 11,
+                            message: "is long"},
+                   uniqueness: true,
+                   uniqueness: {message: "is taken in past",
+                                case_sensitive: false}
 
 
 private
