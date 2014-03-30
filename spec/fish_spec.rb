@@ -12,6 +12,7 @@ describe Fish do
     end
   end
 
+# FEED
   context '#feed' do
     it 'should add 1 to hunger' do
       fish = Fish.create(name: "test", hunger: "◼◻◻◻◻◻◻◻◻◻")
@@ -20,4 +21,49 @@ describe Fish do
       fish.hunger.should eq "◼◼◻◻◻◻◻◻◻◻"
     end
   end
+  context '#unfeed' do
+    it 'should remove 1 to hunger' do
+      fish = Fish.create(name: "test", hunger: "◼◼◻◻◻◻◻◻◻◻")
+      fish.unfeed(fish.id)
+      fish.reload
+      fish.hunger.should eq "◼◻◻◻◻◻◻◻◻◻"
+    end
+  end
+
+#MOOD
+  context '#happy' do
+    it 'should add 1 to mood' do
+      fish = Fish.create(name: "test", mood: "☻☺☺☺☺☺☺☺☺☺")
+      fish.happy(fish.id)
+      fish.reload
+      fish.mood.should eq "☻☻☺☺☺☺☺☺☺☺"
+    end
+  end
+  context '#unhappy' do
+    it 'should remove 1 to mood' do
+      fish = Fish.create(name: "test", mood: "☻☻☺☺☺☺☺☺☺☺")
+      fish.unhappy(fish.id)
+      fish.reload
+      fish.mood.should eq "☻☺☺☺☺☺☺☺☺☺"
+    end
+  end
+
+#DISCIPLINE
+  context '#scold' do
+    it 'should add 1 to discipline' do
+      fish = Fish.create(name: "test", discipline: "✦✧✧✧✧✧✧✧✧✧")
+      fish.scold(fish.id)
+      fish.reload
+      fish.discipline.should eq "✦✦✧✧✧✧✧✧✧✧"
+    end
+  end
+  context '#unscold' do
+    it 'should remove 1 to discipline' do
+      fish = Fish.create(name: "test", discipline: "✦✦✧✧✧✧✧✧✧✧")
+      fish.unscold(fish.id)
+      fish.reload
+      fish.discipline.should eq "✦✧✧✧✧✧✧✧✧✧"
+    end
+  end
+
 end

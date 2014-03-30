@@ -1,6 +1,6 @@
 #Rubygotchi
 
-##Tamagotchi in Ruby using activerecord and terminal
+###Tamagotchi in Ruby using activerecord and terminal
 
 * Pet will be named then born and gender will be set
 * Pet will have a Hunger, Happy, Discipline Meters

@@ -11,7 +11,7 @@ def main_menu
   choice = nil
   until choice == 'x'
     puts "==================================="
-    puts "Select option below on… "
+    puts "Select opt\@ion below on… "
     puts "   [c]reate"
     puts "   [r]esume"
     puts "  e[x]it"
@@ -25,7 +25,7 @@ def main_menu
         resume_menu
       when 'x'
         clear
-        puts "\e[43mBye Bye for you now… \e[0m\n\n"
+        puts "\a\e[43mBye Bye for you now… \e[0m\n\n"
         exit
       else
         error
@@ -50,7 +50,7 @@ def create_menu
     else
       gender = Fish.gender_random
   end
-  @current = Fish.new(name: name, gender: gender, hunger: "◼◻◻◻◻◻◻◻◻◻", mood: "☻☻☻☻☻☺☺☺☺☺", discipline: "✧✧✧✧✧✧✧✧✧✧")
+  @current = Fish.new(name: name, gender: gender, hunger: "assssssss", mood: "☻☻☻☻☻☺☺☺☺☺", discipline: "✧✧✧✧✧✧✧✧✧✧")
   if @current.save
     clear
     puts "New friend \e[1;32m#{name}#{gender}\e[0;0m  has born…"
@@ -94,17 +94,11 @@ def game_menu
   prompt
   case gets.chomp
     when 'f'
-      @current.feed(@current.id)
-      @current.reload
-      clear
-      game
-    when 'u'
-      @current.unfeed(@current.id)
-      @current.reload
-      clear
-      game
+      add_hunger
     when 'g'
+      add_mood
     when 's'
+      add_discipline
     when 'b'
       clear
       main_menu
@@ -114,9 +108,33 @@ def game_menu
   end
 end
 
+# FEED ====================================================
+def add_hunger
+  @current.feed(@current.id)
+  @current.reload
+  clear
+  game
+end
+
+# HAPPY ===================================================
+def add_mood
+  @current.happy(@current.id)
+  @current.reload
+  clear
+  game
+end
+
+# SCOLD ===================================================
+def add_discipline
+  @current.scold(@current.id)
+  @current.reload
+  clear
+  game
+end
+
 # OTHER ===================================================
 def welcome
-  puts "\e[43mThank for Rubygotchi™ you choosing.\e[0m"
+  puts "\a\a\e[43m⁂ Thank for Rubygotchi™ you choosing ⁂\e[0m"
 	main_menu
 end
 
@@ -135,31 +153,24 @@ end
 
 def screen
   puts "==================================="
-  puts "          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]"
-  puts "        Hunger: [ \e[32m#{@current.hunger}\e[0m ]"
-  puts "         Happy: [ \e[32m#{@current.mood}\e[0m ]"
-  puts "    Discipline: [ \e[32m#{@current.discipline}\e[0m ]"
-  puts "\n"
-
+  puts "|          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]   |"
+  puts "|        Hunger: [ \e[32m#{@current.hunger}\e[0m ]   |"
+  puts "|         Happy: [ \e[32m#{@current.mood}\e[0m ]   |"
+  puts "|    Discipline: [ \e[32m#{@current.discipline}\e[0m ]   |"
   print <<FISH
-              \e[34mo\e[0m
-                \e[34mo\e[0m  \e[33m_\e[0m
-               \e[34mo\e[0m \e[33m_//}_
-                / o ~~\\\/}
-                \\   ))/\\}
-                 `---`\e[0m
-
+|             \e[34mo\e[0m                   |
+|               \e[34mo\e[0m  \e[33m_\e[0m              |
+|              \e[34mo\e[0m \e[33m_//}_\e[0m            |
+|               \e[33m/ o ~~\\\/}\e[0m         |
+|               \e[33m\\   ))/\\}\e[0m         |
+|                \e[33m`---`\e[0m            |
 FISH
   puts "==================================="
-
 end
 
-
 # USE LATER
-  # ⁂ ☠
-  # ♥♡ ☻☺ ✦✧ ◼▢▢▢▢◽▢▢▢▢ ▣▢▢▢▢▢▢   ◼◼◼◻◻◻
+  # ☠ ♥♡ ☻☺ ✦✧ ◼◼◼◻◻◻
 
 # ONLOAD ==================================================
-
 clear
 welcome
