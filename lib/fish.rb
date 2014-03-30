@@ -6,7 +6,9 @@ class Fish < ActiveRecord::Base
                    uniqueness: true,
                    uniqueness: {message: "is taken in past",
                                 case_sensitive: false}
-#FEED
+
+
+#FEED_UI
   def feed(fish_id)
     fish = Fish.find(id = fish_id)
     h = fish.hunger.sub '◻', '◼'
@@ -16,6 +18,26 @@ class Fish < ActiveRecord::Base
     fish = Fish.find(id = fish_id)
     h = fish.hunger.reverse.sub('◼', '◻').reverse
     fish.update(hunger: h)
+  end
+  def try_feed(fish_id)
+    fish = Fish.find(id = fish_id)
+    if fish.hunger == "◼◼◼◼◼◼◼◼◼◼"
+      if rand(4) == 0
+        fish.unhappy(fish.id)
+      end
+    else
+      if fish.discipline == "✦✦✦✦✦✦✦✦✦✦"
+        fish.feed(fish.id)
+      elsif fish.discipline.gsub('✧', '').size > 5
+        if rand(2) == 0
+          fish.feed(fish.id)
+        end
+      else
+        if rand(4) == 0
+          fish.feed(fish.id)
+        end
+      end
+    end
   end
 
 #MOOD
@@ -44,6 +66,7 @@ class Fish < ActiveRecord::Base
 
 private
 
+#GENDER
   def self.gender_random
     r = rand(3)
     if r == 0

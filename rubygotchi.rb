@@ -11,7 +11,7 @@ def main_menu
   choice = nil
   until choice == 'x'
     puts "==================================="
-    puts "Select opt\@ion below on… "
+    puts "Select option below on… "
     puts "   [c]reate"
     puts "   [r]esume"
     puts "  e[x]it"
@@ -28,7 +28,8 @@ def main_menu
         puts "\a\e[43mBye Bye for you now… \e[0m\n\n"
         exit
       else
-        error
+        clear
+        main_menu
     end
   end
 end
@@ -74,7 +75,8 @@ def resume_menu
     @current = Fish.find(id = select)
     game
   else
-    error
+    clear
+    main_menu
   end
 end
 
@@ -95,6 +97,11 @@ def game_menu
   case gets.chomp
     when 'f'
       add_hunger
+    when 'u'
+      @current.unfeed(@current.id)
+      @current.reload
+      clear
+      game
     when 'g'
       add_mood
     when 's'
@@ -103,14 +110,14 @@ def game_menu
       clear
       main_menu
     else
-      error
+      clear
       game
   end
 end
 
 # FEED ====================================================
 def add_hunger
-  @current.feed(@current.id)
+  @current.try_feed(@current.id)
   @current.reload
   clear
   game
@@ -142,10 +149,10 @@ def prompt
   print "\e[96myou response \e[5;96m➤ \e[0;0m"
 end
 
-def error
-	clear
-	puts "\e[5;31m⋙ ⋙ ⋙  Σʁʁ☹я ⋘ ⋘ ⋘\e[0;0m"
-end
+# def error
+# 	clear
+# 	puts "\e[5;31m⋙ ⋙ ⋙  Σʁʁ☹я ⋘ ⋘ ⋘\e[0;0m"
+# end
 
 def clear
 	system "clear && printf '\e[3J'"
