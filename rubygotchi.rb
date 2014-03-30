@@ -51,7 +51,7 @@ def create_menu
     else
       gender = Fish.gender_random
   end
-  @current = Fish.new(name: name, gender: gender, hunger: "assssssss", mood: "☻☻☻☻☻☺☺☺☺☺", discipline: "✧✧✧✧✧✧✧✧✧✧")
+  @current = Fish.new(name: name, gender: gender, hunger: "◼◻◻◻◻◻◻◻◻◻", mood: "☻☻☻☻☻☺☺☺☺☺", discipline: "✧✧✧✧✧✧✧✧✧✧", age: 0)
   if @current.save
     clear
     puts "New friend \e[1;32m#{name}#{gender}\e[0;0m  has born…"
@@ -97,7 +97,7 @@ def game_menu
   case gets.chomp
     when 'f'
       add_hunger
-    when 'u'
+    when 'u' #for testing
       @current.unfeed(@current.id)
       @current.reload
       clear

@@ -21,6 +21,7 @@ class Fish < ActiveRecord::Base
   end
   def try_feed(fish_id)
     fish = Fish.find(id = fish_id)
+    fish.update(age: +1)
     if fish.hunger == "◼◼◼◼◼◼◼◼◼◼"
       if rand(4) == 0
         fish.unhappy(fish.id)
