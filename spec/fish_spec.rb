@@ -31,13 +31,12 @@ describe Fish do
   end
   context '#try_feed' do
     it 'should add 1 to hunger when full discipline' do
-      fish = Fish.create(name: "test", hunger: "◼◼◻◻◻◻◻◻◻◻", discipline: "✦✦✦✦✦✦✦✦✦✦")
+      fish = Fish.create(name: "test", hunger: "◼◼◻◻◻◻◻◻◻◻", discipline: "✦✦✦✦✦✦✦✦✦✦", age: '0')
       fish.try_feed(fish.id)
       fish.reload
       fish.hunger.should eq "◼◼◼◻◻◻◻◻◻◻"
     end
   end
-
 
 #MOOD
   context '#happy' do
