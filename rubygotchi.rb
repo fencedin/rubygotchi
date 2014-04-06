@@ -10,16 +10,16 @@ ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))
 def main_menu
   choice = nil
   until choice == 'x'
-    puts "==================================="
+    puts "======================================="
     puts "Select option below on… "
     puts "   [c]reate"
     puts "   [r]esume"
     puts "  e[x]it"
-    puts "==================================="
     prompt
     choice = gets.chomp
     case choice
       when 'c'
+        clear
         create_menu
       when 'r'
         resume_menu
@@ -37,9 +37,11 @@ end
 # CREATE MENU =============================================
 def create_menu
   puts "You are to create new friend"
-  puts "name it"
+  puts "   \e[1;39mName\e[0;0m"
+  prompt
   name = gets.chomp
-  puts "Do like [b]lue [g]reen [y]ellow or [r]ed?"
+  puts "   \e[1;39mDo like \e[34m[b]lue \e[92m[g]reen\e[1;39m or \e[93m[y]ellow\e[1;39m ?\e[0;0m"
+  prompt
   gender = gets.chomp
   case gender
     when 'b'
@@ -54,7 +56,7 @@ def create_menu
   @current = Fish.new(name: name, gender: gender, hunger: "◼◻◻◻◻◻◻◻◻◻", mood: "☻☻☻☻☻☺☺☺☺☺", discipline: "✧✧✧✧✧✧✧✧✧✧", age: 0)
   if @current.save
     clear
-    puts "New friend \e[1;32m#{name}#{gender}\e[0;0m  has born…"
+    puts "New friend \e[1;32m#{name}#{gender}\e[0;0m  has born ♡ …"
     game
   else
     clear
@@ -66,15 +68,19 @@ end
 # RESUME MENU =============================================
 def resume_menu
   clear
-  puts "\e[4;39mAll friends list:\e[0;0m"
-  Fish.all.each do |f|
+  puts "All friends list:"
+  puts "======================================="
+  puts "    \e[4;39mID\e[0;0m   \e[4;39mName\e[0;0m"
+  Fish.all.sort_by{|f| f.name}.each do |f|
     if f.age > 99
-      puts " "*5 + "\e[31m "+ f.name + f.gender + " is dead\e[0m"
+      puts "   \e[31mdead  " + f.name + f.gender + "\e[0;0m"
     else
-      puts "#" + f.id.to_s + " "*(4-f.id.to_s.length) + " "+ f.name + f.gender
+      puts "   #\e[1;39m" + f.id.to_s + " "*(4-f.id.to_s.length) + " "+ f.name + f.gender + "\e[0;0m"
     end
   end
-  puts "\nEnter number of friend to resume"
+  puts "======================================="
+  puts "Enter number of friend to resume"
+  prompt
   select = gets.chomp
   if Fish.where(id: select).length > 0
     clear
@@ -89,7 +95,7 @@ end
 # GAME ====================================================
 def game
   if @current.age > 99
-    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead…"
+    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead ☠ …"
     dead_screen
   else
     if @current.gender == '♂'
@@ -112,7 +118,6 @@ def game_menu
     puts "   [g]ive friend attention"
     puts "   [s]cold friend"
     puts "   [b]ack to main menu"
-    puts "==================================="
     prompt
     choice = gets.chomp
     case choice
@@ -136,7 +141,7 @@ end
 def add_hunger
   if @current.age > 99
     clear
-    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead…"
+    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead ☠ …"
     dead_screen
   else
     @current.try_feed(@current.id)
@@ -150,7 +155,7 @@ end
 def add_mood
   if @current.age > 99
     clear
-    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead…"
+    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead ☠ …"
     dead_screen
   else
     @current.try_happy(@current.id)
@@ -164,7 +169,7 @@ end
 def add_discipline
   if @current.age > 99
     clear
-    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead…"
+    puts "\e[1;31m#{@current.name}#{@current.gender}\e[0;0m  has dead ☠ …"
     dead_screen
   else
     @current.try_scold(@current.id)
@@ -181,7 +186,8 @@ def welcome
 end
 
 def prompt
-  print "\e[96myou response \e[5;96m➤ \e[0;0m"
+  puts "======================================="
+  print "\e[96mresponse \e[5;96m➤ \e[0;0m"
 end
 
 def error
@@ -194,41 +200,38 @@ def clear
 end
 
 def screen
-  puts "==================================="
-  puts "|          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]   |"
-  puts "|        Hunger: [ \e[32m#{@current.hunger}\e[0m ]   |"
-  puts "|         Happy: [ \e[32m#{@current.mood}\e[0m ]   |"
-  puts "|    Discipline: [ \e[32m#{@current.discipline}\e[0m ]   |"
+  puts "======================================="
+  puts "|          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]       |"
+  puts "|        Hunger: [ \e[32m#{@current.hunger}\e[0m ]       |"
+  puts "|         Happy: [ \e[32m#{@current.mood}\e[0m ]       |"
+  puts "|    Discipline: [ \e[32m#{@current.discipline}\e[0m ]       |"
   print <<FISH
-|             \e[36mo\e[0m                   |
-|               \e[36mo\e[0m  #{@color}_\e[0m              |
-|              \e[36mo\e[0m #{@color}_//}_\e[0m            |
-|               #{@color}/ o ~~\\\/}\e[0m         |
-|               #{@color}\\   ))/\\}\e[0m         |
-|                #{@color}`---`\e[0m            |
+|             \e[36mo\e[0m                       |
+|               \e[36mo\e[0m  #{@color}_\e[0m                  |
+|              \e[36mo\e[0m #{@color}_//}_\e[0m                |
+|               #{@color}/ o ~~\\\/}\e[0m             |
+|               #{@color}\\   ))/\\}\e[0m             |
+|                #{@color}`---`\e[0m                |
 FISH
-  puts "==================================="
+  puts "======================================="
 end
 
 def dead_screen
-  puts "==================================="
-  puts "|          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]   |"
-  puts "|        Hunger: [ \e[32m#{@current.hunger}\e[0m ]   |"
-  puts "|         Happy: [ \e[32m#{@current.mood}\e[0m ]   |"
-  puts "|    Discipline: [ \e[32m#{@current.discipline}\e[0m ]   |"
+  puts "======================================="
+  puts "|          Name: [ \e[32m" + @current.name + @current.gender + " "*(9-@current.name.length) + "\e[0m ]       |"
+  puts "|        Hunger: [ \e[32m#{@current.hunger}\e[0m ]       |"
+  puts "|         Happy: [ \e[32m#{@current.mood}\e[0m ]       |"
+  puts "|    Discipline: [ \e[32m#{@current.discipline}\e[0m ]       |"
   print <<FISH
-|                                 |
-|                  \e[90m_\e[0m              |
-|                \e[90m_//}_\e[0m            |
-|               \e[90m/ X ~~\\\/}\e[0m         |
-|               \e[90m\\   ))/\\}\e[0m         |
-|                \e[90m`---`\e[0m            |
+|                                     |
+|                  \e[90m_\e[0m                  |
+|                \e[90m_//}_\e[0m                |
+|               \e[90m/ X ~~\\\/}\e[0m             |
+|               \e[90m\\   ))/\\}\e[0m             |
+|                \e[90m`---`\e[0m                |
 FISH
-  puts "==================================="
+  puts "======================================="
 end
-
-# USE LATER
-  # ☠ ♥♡ ☻☺ ✦✧ ◼◼◼◻◻◻
 
 # ONLOAD ==================================================
 clear
