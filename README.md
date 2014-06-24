@@ -1,12 +1,15 @@
 #Rubygotchi
+####Tamagotchi inspired game using Ruby v2.1.1
+Adopt and name a new pet that you can take care of. You can feed it, give it attention, and scold it if it's misbehaving.
 
-###Tamagotchi in Ruby using activerecord and terminal
+###Install and Run
+* clone repo
+* type ```ruby rubygotchi.rb``` in directory where repo was saved
+* play the game!
 
-* Pet will be named then born and gender will be set
-* Pet will have a Hunger, Happy, Discipline Meters
-* Pets can be fed, pet, scolded to affect stats
-* Pet dies if hunger and happiness gets too low
 
+
+###Preview of game
 ```
 ==================================
           Name: [name of pet♀]
@@ -23,3 +26,8 @@
 
 ==================================
 ```
+
+
+###License
+
+© 2014 Vincent Rotter
